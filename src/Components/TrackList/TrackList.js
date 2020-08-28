@@ -4,13 +4,9 @@ import './TrackList.css';
 import Track from '../Track/Track.js';
 
 class TrackList extends React.Component {
-    constructor(props){
-        super(props);
-        this.addTrack = this.addTrack.bind(this);
-    }
-    addTrack() {
-        this.props.onAdd(this.props.track);
-    }
+
+
+    
     render () {
         return (
             
@@ -20,12 +16,14 @@ class TrackList extends React.Component {
                    return <Track 
                    track={track}
                    key={track.id}
-                   onAdd={this.props.onAdd} />
+                   onAdd={this.props.onAdd}
+                   onRemove={this.props.onRemove}
+                   isRemoval={this.props.isRemoval} />
                })
             }
         </div>
         )
-    };
-  }
+    }
+}
   
   export default TrackList;

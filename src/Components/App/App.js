@@ -8,20 +8,20 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {searchResults: [
-      {name: 'name',
-      artist: 'artist',
-      album: 'album',
-      id: 1,
+      {name: 'name1',
+      artist: 'artist1',
+      album: 'album1',
+      id: 1
       },
-      {name: 'name',
-      artist: 'artist',
-      album: 'album',
-      id: 2,
+      {name: 'name2',
+      artist: 'artist2',
+      album: 'album2',
+      id: 2
       },
-      {name: 'name',
-        artist: 'artist',
-        album: 'album',
-        id: 3,
+      {name: 'name3',
+        artist: 'artist3',
+        album: 'album3',
+        id: 3
       },
     ],
     playlistName: "Melody Marks",
@@ -29,17 +29,37 @@ class App extends React.Component {
       name: "Melody Mark on Track",
       artist: "Melody Mark",
       album: 'Melody Mark Tour',
-      id: 4
-    }]
+      id: 14
+    },{
+      name: "Melody Mark on Track2",
+      artist: "Melody Marks",
+      album: 'Melody Mark Tour',
+      id: 15
+    },{
+      name: "Melody Mark on Track3",
+      artist: "Melody Marks",
+      album: 'Melody Mark Tour3',
+      id: 16
+    },]
    }
    this.addTrack = this.addTrack.bind(this);
+   this.removeTrack = this.removeTrack.bind(this);
   }
+
   addTrack(track) {
-    if (this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
-      return;
-    }
-    this.state.playlistTracks.push(track)
-    this.setState ={playlistTracks: this.state.playlistTracks }
+    let tracks = this.state.playlistTracks;
+    if (tracks.find(savedTrack => savedTrack.id === track.id)) {
+      alert('Song already in playlist')
+    } else{
+  
+      tracks.push(track)
+    this.setState ({playlistTracks: tracks });}
+  }
+  removeTrack(track){
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id)
+
+    this.setState({ playlistTracks: tracks})
   }
   render () {
     return (
@@ -48,8 +68,9 @@ class App extends React.Component {
     <div className="App">
       <SearchBar />
       <div className="App-playlist">
-        <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
-        <Playlist playlistName={this.state.playlistName} playlistTracks ={this.state.playlistTracks }  />
+        <SearchResults searchResults={this.state.searchResults} 
+        onAdd={this.addTrack}/>
+        <Playlist playlistName={this.state.playlistName} playlistTracks ={this.state.playlistTracks } onRemove={this.removeTrack}  />
       </div>
     </div>
   </div>
